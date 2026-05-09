@@ -1,0 +1,9 @@
+{
+  "name": "中英翻译器",
+  "short_name": "翻译",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": []
+}

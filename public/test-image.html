@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Upload Test</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    img { max-width: 100%; max-height: 300px; border: 2px solid #ccc; margin-top: 10px; }
+    .preview { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Image Upload Test</h1>
+  <input type="file" id="imageInput" accept="image/*">
+  <div class="preview">
+    <h3>Preview:</h3>
+    <img id="preview" style="display:none;">
+    <p id="noImage">No image selected</p>
+    <p id="info"></p>
+  </div>
+
+  <script>
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      console.log('File:', file.name, file.size, file.type);
+      
+      const reader = new FileReader();
+      
+      reader.onload = function(event) {
+        const img = document.getElementById('preview');
+        img.src = event.target.result;
+        img.style.display = 'block';
+        document.getElementById('noImage').style.display = 'none';
+        document.getElementById('info').textContent = 
+          'Size: ' + Math.round(file.size / 1024) + ' KB | ' +
+          'Data URL length: ' + event.target.result.length;
+        console.log('Image loaded, data URL length:', event.target.result.length);
+      };
+      
+      reader.onerror = function() {
+        document.getElementById('info').textContent = 'ERROR: Failed to read file';
+      };
+      
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
